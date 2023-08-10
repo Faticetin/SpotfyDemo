@@ -1,0 +1,184 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{143F081E-C74D-4D5A-9CD0-D7E7D8B0B39B}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>SpotifyDemo</RootNamespace>
+    <AssemblyName>SpotifyDemo</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AlbumDataList.cs" />
+    <Compile Include="DataServices\BaseDal.cs" />
+    <Compile Include="Forms\frmAlbum.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmAlbum.Designer.cs">
+      <DependentUpon>frmAlbum.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmAlbumAdd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmAlbumAdd.Designer.cs">
+      <DependentUpon>frmAlbumAdd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmAlbumUpdate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmAlbumUpdate.Designer.cs">
+      <DependentUpon>frmAlbumUpdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmArtist.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmArtist.Designer.cs">
+      <DependentUpon>frmArtist.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmArtistAdd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmArtistAdd.Designer.cs">
+      <DependentUpon>frmArtistAdd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmArtistUpdate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmArtistUpdate.Designer.cs">
+      <DependentUpon>frmArtistUpdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmSongUpdate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmSongUpdate.Designer.cs">
+      <DependentUpon>frmSongUpdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Album.cs" />
+    <Compile Include="DataServices\AlbumDal.cs" />
+    <Compile Include="Models\Artist.cs" />
+    <Compile Include="DataServices\ArtistDal.cs" />
+    <Compile Include="Forms\frmLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmLogin.Designer.cs">
+      <DependentUpon>frmLogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmRegister.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmRegister.Designer.cs">
+      <DependentUpon>frmRegister.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmSong.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmSong.Designer.cs">
+      <DependentUpon>frmSong.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmSongAdd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmSongAdd.Designer.cs">
+      <DependentUpon>frmSongAdd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Models\Song.cs" />
+    <Compile Include="DataServices\SongDal.cs" />
+    <Compile Include="SongDataList.cs" />
+    <Compile Include="Models\User.cs" />
+    <Compile Include="DataServices\UserDal.cs" />
+    <EmbeddedResource Include="Forms\frmAlbum.resx">
+      <DependentUpon>frmAlbum.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmAlbumAdd.resx">
+      <DependentUpon>frmAlbumAdd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmAlbumUpdate.resx">
+      <DependentUpon>frmAlbumUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmArtist.resx">
+      <DependentUpon>frmArtist.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmArtistAdd.resx">
+      <DependentUpon>frmArtistAdd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmArtistUpdate.resx">
+      <DependentUpon>frmArtistUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmLogin.resx">
+      <DependentUpon>frmLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmRegister.resx">
+      <DependentUpon>frmRegister.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmSong.resx">
+      <DependentUpon>frmSong.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmSongAdd.resx">
+      <DependentUpon>frmSongAdd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmSongUpdate.resx">
+      <DependentUpon>frmSongUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
