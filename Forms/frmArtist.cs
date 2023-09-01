@@ -48,8 +48,10 @@ namespace SpotifyDemo.Forms
 
         private void btnRemove_Click(object sender, EventArgs e)
         {
-            DataGridViewRow selectedRow = dgwArtists.SelectedRows[0];
-            int artistId = Convert.ToInt32(selectedRow.Cells["ArtistId"].Value);
+            
+            int artistId = Convert.ToInt32(dgwArtists.CurrentCell.OwningRow.Cells["ArtistId"].Value.ToString());
+
+
 
             _songDal.RemoveSongByArtistId(artistId);
             _albumDal.RemoveByAlbumId(artistId);
