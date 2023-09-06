@@ -85,6 +85,7 @@
             this.dgwSongs.RowTemplate.Height = 24;
             this.dgwSongs.Size = new System.Drawing.Size(856, 228);
             this.dgwSongs.TabIndex = 1;
+            this.dgwSongs.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgwSongs_CellContentClick);
             // 
             // btnEkle
             // 

@@ -1,4 +1,8 @@
-﻿using System;
+﻿using Business.Abstract;
+using Business.Concrete.EntityFramwork;
+using DataAccess.Concrete;
+using Entities.Concrete;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,29 +16,33 @@ namespace SpotifyDemo
 {
     public partial class frmSongAdd : Form
     {
-        AlbumDal albumDal = new AlbumDal();
-        ArtistDal artistDal = new ArtistDal();
+
 
         public frmSongAdd()
         {
             InitializeComponent();
+            _albumService = new AlbumManeger(new EfAlbumDal());
+            _artistService = new ArtistManeger(new EfArtistDal());
+            _songService = new SongManeger(new EfSongDal());
         }
-        SongDal _songdal = new SongDal();
+        private ISongService _songService;
+        private IArtistService _artistService;
+        private IAlbumService _albumService;
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            Artist selectedArtist = (Artist) cmbArtist.SelectedItem;
-            Album selectedAlbum = (Album) cmbAlbum.SelectedItem;
 
-            Song song = new Song
+            Artist selectedArtist = (Artist)cmbArtist.SelectedItem;
+            Album selectedAlbum = (Album)cmbAlbum.SelectedItem;
+
+            _songService.Add(new Song
             {
                 AlbumId = selectedAlbum.AlbumId,
                 ArtistId = selectedArtist.ArtistId,
                 Name = txtSong.Text,
                 ReleaseDate = dtpReleaseDate.Value
-            };
+            });
+            MessageBox.Show("Şarkı Eklendi");
 
-            _songdal.Add(song);
-            MessageBox.Show("Song Added");
             frmSong frm = new frmSong();
             frm.Show();
             this.Hide();
@@ -42,40 +50,32 @@ namespace SpotifyDemo
 
         private void frmSongAdd_Load(object sender, EventArgs e)
         {
-            List<Artist> artists = artistDal.GetAll();
 
-            foreach (Artist artist in artists)
-            {
-                cmbArtist.Items.Add(artist);
+            cmbArtist.DataSource = _artistService.GetAll();
+            cmbArtist.DisplayMember = "Name";
+            cmbArtist.ValueMember = "ArtistId";
 
-                cmbArtist.DisplayMember = "Name";
-                cmbArtist.ValueMember = "ArtistId";
-            }
         }
 
         private void cmbArtist_SelectedIndexChanged(object sender, EventArgs e)
         {
-            cmbAlbum.Items.Clear();
-
-            if (cmbArtist.SelectedItem is Artist selectedArtist)
+            Artist selectedArtist = (Artist)cmbArtist.SelectedItem;
+            try
             {
-                List<Album> albums = albumDal.GetByArtistId(selectedArtist.ArtistId);
-
-                foreach (Album album in albums)
-                {
-                    cmbAlbum.Items.Add(album);
-         
-                    cmbAlbum.DisplayMember = "Name";
-                    cmbAlbum.ValueMember = "AlbumId";
-                }
+                int artistId = selectedArtist.ArtistId;
+                List<Album> albums = _albumService.GetAlbumsByArtistId(artistId);
+                cmbAlbum.DataSource = albums;
+                cmbAlbum.DisplayMember = "Name";
+                cmbAlbum.ValueMember = "AlbumId";
             }
-        }
+            catch (Exception ex)
+            {
 
-        private void btnBack_Click(object sender, EventArgs e)
-        {
-            frmSong frm = new frmSong();
-            frm.Show();
-            this.Hide();
+                MessageBox.Show("Dönüşüm hatası: " + ex.Message);
+            }
+
+
+
         }
     }
 }

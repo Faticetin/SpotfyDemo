@@ -1,4 +1,9 @@
-﻿using System;
+﻿using Business.Abstract;
+using Business.Concrete;
+using Business.Concrete.EntityFramwork;
+using DataAccess.Concrete;
+using Entities.Concrete;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,13 +17,14 @@ namespace SpotifyDemo.Forms
 {
     public partial class frmAlbum : Form
     {
-        AlbumDal _albumDal = new AlbumDal();
-        SongDal _songDal = new SongDal();
+        //AlbumDal _albumDal = new AlbumDal();
+        //SongDal _songDal = new SongDal();
         public frmAlbum()
         {
             InitializeComponent();
+            _albumservice = new AlbumManeger(new EfAlbumDal());
         }
-
+        private IAlbumService _albumservice;
         private void songsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             frmSong frm = new frmSong();
@@ -28,7 +34,7 @@ namespace SpotifyDemo.Forms
 
         private void frmAlbum_Load(object sender, EventArgs e)
         {
-            dgwAlbums.DataSource = _albumDal.GetDataList();
+            dgwAlbums.DataSource = _albumservice.GetAll();
         }
 
         private void btnEkle_Click(object sender, EventArgs e)
@@ -40,13 +46,12 @@ namespace SpotifyDemo.Forms
 
         private void btnRemove_Click(object sender, EventArgs e)
         {
-            DataGridViewRow selectedRow = dgwAlbums.SelectedRows[0];
-            int albumId = Convert.ToInt32(selectedRow.Cells["AlbumId"].Value);
+            _albumservice.Delete(new Album
+            {
+                AlbumId = Convert.ToInt32(dgwAlbums.CurrentRow.Cells[0].Value)
+            });
 
-            _songDal.RemoveSongByAlbumId(albumId);
-            _albumDal.Remove(albumId);
-
-            dgwAlbums.DataSource = _albumDal.GetDataList();
+            dgwAlbums.DataSource = _albumservice.GetAll();
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
