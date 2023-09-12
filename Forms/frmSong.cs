@@ -29,9 +29,54 @@ namespace SpotifyDemo
 
 
         private ISongService _songService;
+        SpotfyContext sp = new SpotfyContext();
         private void frmSong_Load(object sender, EventArgs e)
         {
-            dgwSongs.DataSource = _songService.GetAll();
+            //var query = from song in sp.Songs
+            //            join album in sp.Albums
+            //            on song.AlbumId equals album.AlbumId
+            //            join artis in sp.Artists
+            //            on song.ArtistId equals artis.ArtistId
+            //            select new
+            //            {
+            //                Album = album.Name,
+            //                Artist = artis.Name,
+            //                Song = song.Name,
+            //                ReleaseDate = song.ReleaseDate
+            //            };
+
+            var query = sp.Songs
+                .Join(
+                    sp.Albums,
+                    song => song.AlbumId,
+                    album => album.AlbumId,
+                    (song, album) => new
+                    {
+                        Song = song,
+                        Album = album
+                    }
+                    )
+                    .Join(sp.Artists,
+                    combined => combined.Song.ArtistId,
+                    artist => artist.ArtistId,
+                    (combined, artist) => new
+                    {
+                        Song = combined.Song,
+                        Album = combined.Album,
+                        Artist = artist
+                    }
+                    )
+                    .Select(result => new
+                    {
+                        Album = result.Album.Name,
+                        Artist = result.Artist.Name,
+                        Song = result.Song.Name,
+                        ReleaseDate = result.Song.ReleaseDate
+                    });
+
+
+
+            dgwSongs.DataSource = query.ToList();
         }
 
         private void btnEkle_Click(object sender, EventArgs e)
